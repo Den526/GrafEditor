@@ -33,7 +33,10 @@
             this.lblCoordPB1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.gbColor = new System.Windows.Forms.GroupBox();
+            this.gbPen = new System.Windows.Forms.GroupBox();
+            this.cmdSelectColor = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cbThicknes = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -50,7 +53,7 @@
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            this.gbColor.SuspendLayout();
+            this.gbPen.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbShapes.SuspendLayout();
             this.SuspendLayout();
@@ -63,7 +66,7 @@
             this.pbMainGrafWin.BackColor = System.Drawing.Color.White;
             this.pbMainGrafWin.Location = new System.Drawing.Point(172, 12);
             this.pbMainGrafWin.Name = "pbMainGrafWin";
-            this.pbMainGrafWin.Size = new System.Drawing.Size(1148, 459);
+            this.pbMainGrafWin.Size = new System.Drawing.Size(976, 459);
             this.pbMainGrafWin.TabIndex = 0;
             this.pbMainGrafWin.TabStop = false;
             this.pbMainGrafWin.Click += new System.EventHandler(this.pbMainGrafWin_Click);
@@ -77,7 +80,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 474);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1320, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1148, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -106,25 +109,63 @@
             this.label1.Text = "  ";
             this.label1.Click += new System.EventHandler(this.SelectColor_Click);
             // 
-            // gbColor
+            // gbPen
             // 
-            this.gbColor.Controls.Add(this.label11);
-            this.gbColor.Controls.Add(this.label10);
-            this.gbColor.Controls.Add(this.label9);
-            this.gbColor.Controls.Add(this.label8);
-            this.gbColor.Controls.Add(this.label7);
-            this.gbColor.Controls.Add(this.label6);
-            this.gbColor.Controls.Add(this.label5);
-            this.gbColor.Controls.Add(this.label4);
-            this.gbColor.Controls.Add(this.label3);
-            this.gbColor.Controls.Add(this.label2);
-            this.gbColor.Controls.Add(this.label1);
-            this.gbColor.Location = new System.Drawing.Point(8, 141);
-            this.gbColor.Name = "gbColor";
-            this.gbColor.Size = new System.Drawing.Size(158, 68);
-            this.gbColor.TabIndex = 3;
-            this.gbColor.TabStop = false;
-            this.gbColor.Text = "Выбор цвета";
+            this.gbPen.Controls.Add(this.cmdSelectColor);
+            this.gbPen.Controls.Add(this.label12);
+            this.gbPen.Controls.Add(this.cbThicknes);
+            this.gbPen.Controls.Add(this.label11);
+            this.gbPen.Controls.Add(this.label10);
+            this.gbPen.Controls.Add(this.label9);
+            this.gbPen.Controls.Add(this.label8);
+            this.gbPen.Controls.Add(this.label7);
+            this.gbPen.Controls.Add(this.label6);
+            this.gbPen.Controls.Add(this.label5);
+            this.gbPen.Controls.Add(this.label4);
+            this.gbPen.Controls.Add(this.label3);
+            this.gbPen.Controls.Add(this.label2);
+            this.gbPen.Controls.Add(this.label1);
+            this.gbPen.Location = new System.Drawing.Point(8, 162);
+            this.gbPen.Name = "gbPen";
+            this.gbPen.Size = new System.Drawing.Size(158, 99);
+            this.gbPen.TabIndex = 3;
+            this.gbPen.TabStop = false;
+            this.gbPen.Text = "Настройки пера";
+            // 
+            // cmdSelectColor
+            // 
+            this.cmdSelectColor.Location = new System.Drawing.Point(66, 40);
+            this.cmdSelectColor.Name = "cmdSelectColor";
+            this.cmdSelectColor.Size = new System.Drawing.Size(86, 26);
+            this.cmdSelectColor.TabIndex = 7;
+            this.cmdSelectColor.Text = "выбор цвета";
+            this.cmdSelectColor.UseVisualStyleBackColor = true;
+            this.cmdSelectColor.Click += new System.EventHandler(this.cmdSelectColor_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(6, 75);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(64, 16);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "толщина";
+            // 
+            // cbThicknes
+            // 
+            this.cbThicknes.FormattingEnabled = true;
+            this.cbThicknes.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cbThicknes.Location = new System.Drawing.Point(85, 72);
+            this.cbThicknes.Name = "cbThicknes";
+            this.cbThicknes.Size = new System.Drawing.Size(67, 21);
+            this.cbThicknes.TabIndex = 8;
+            this.cbThicknes.Text = "1";
             // 
             // label11
             // 
@@ -248,18 +289,23 @@
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(4, 14);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(150, 238);
+            this.listBox1.Size = new System.Drawing.Size(150, 186);
             this.listBox1.TabIndex = 4;
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.listBox1);
-            this.groupBox1.Location = new System.Drawing.Point(8, 215);
+            this.groupBox1.Location = new System.Drawing.Point(8, 267);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(158, 256);
+            this.groupBox1.Size = new System.Drawing.Size(158, 204);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Список объектов";
@@ -269,7 +315,7 @@
             this.gbShapes.Controls.Add(this.button1);
             this.gbShapes.Location = new System.Drawing.Point(8, 12);
             this.gbShapes.Name = "gbShapes";
-            this.gbShapes.Size = new System.Drawing.Size(158, 123);
+            this.gbShapes.Size = new System.Drawing.Size(158, 88);
             this.gbShapes.TabIndex = 6;
             this.gbShapes.TabStop = false;
             this.gbShapes.Text = "Фигуры";
@@ -289,10 +335,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1320, 496);
+            this.ClientSize = new System.Drawing.Size(1148, 496);
             this.Controls.Add(this.gbShapes);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.gbColor);
+            this.Controls.Add(this.gbPen);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.pbMainGrafWin);
             this.Name = "Form1";
@@ -300,8 +346,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.gbColor.ResumeLayout(false);
-            this.gbColor.PerformLayout();
+            this.gbPen.ResumeLayout(false);
+            this.gbPen.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.gbShapes.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -315,7 +361,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblCoordPB1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox gbColor;
+        private System.Windows.Forms.GroupBox gbPen;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
@@ -331,6 +377,9 @@
         private System.Windows.Forms.GroupBox gbShapes;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ComboBox cbThicknes;
+        private System.Windows.Forms.Button cmdSelectColor;
+        private System.Windows.Forms.Label label12;
     }
 }
 

@@ -18,8 +18,8 @@ namespace GrafEditor
         Pen p1;       //перо
         Point PBegin; // точки для рисования простой линии
         Point PEnd;
-        List<factureLine> FL = new List<factureLine>();
-        int IndActiveFL = 0;  //индекс активной линии, с которой в данный момент работает пользователь
+        List<FractureLine> FL = new List<FractureLine>();
+        int IndActiveFL = -1;  //индекс активной линии, с которой в данный момент работает пользователь
 
         private void pbMainGrafWin_Click(object sender, EventArgs e)
         {
@@ -53,14 +53,14 @@ namespace GrafEditor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            factureLine fl_tmp = new factureLine();
+            FractureLine fl_tmp = new FractureLine();
             FL.Add(fl_tmp);
             IndActiveFL = FL.Count - 1;
             listBox1.Items.Add("Линия" + IndActiveFL.ToString());
         }
 
 
-        private Bitmap PaintGraffics(int width, int height, List<factureLine> flt)
+        private Bitmap PaintGraffics(int width, int height, List<FractureLine> flt)
         {
             Bitmap btmBack = new Bitmap(width, height);
             Graphics grBack = Graphics.FromImage(btmBack);
@@ -80,6 +80,7 @@ namespace GrafEditor
             for (int x = 0; x < flt.Count; x++)
             {
                 P = flt[x].pen;
+                if (flt[x].tchk.Count >= 0) p1 = flt[x].tchk[0];
                 for(int t = 0; t < flt[x].tchk.Count; t++)
                 {
                     step++;
@@ -93,18 +94,24 @@ namespace GrafEditor
             return btmBack;
         }
 
-        //класс ломаной линии
-        class factureLine
-        {
-            public Pen pen = new Pen(Color.Black, 1);  //перо
-            public List<Point> tchk = new List<Point>(); //массив точек
-
-        }
 
         private void SelectColor_Click(object sender, EventArgs e)
         {
-            p1 = new Pen(label11.BackColor, 2);
+            p1 = new Pen(label11.BackColor, Convert.ToInt16(cbThicknes.Text));
             toolStripStatusLabel1.BackColor = label11.BackColor;
+            if (IndActiveFL >= 0) FL[IndActiveFL].pen = p1;
+        }
+
+        private void cmdSelectColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog SelColorDialog = new ColorDialog();
+            DialogResult result = SelColorDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                p1 = new Pen(SelColorDialog.Color, Convert.ToInt16(cbThicknes.Text));
+                toolStripStatusLabel1.BackColor = SelColorDialog.Color;
+                if (IndActiveFL >= 0) FL[IndActiveFL].pen = p1;
+            }
         }
 
     }
