@@ -51,11 +51,21 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gbShapes = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.button2 = new System.Windows.Forms.Button();
+            this.cmdMoveLine = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.gbPen.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbShapes.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pbMainGrafWin
@@ -64,9 +74,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbMainGrafWin.BackColor = System.Drawing.Color.White;
-            this.pbMainGrafWin.Location = new System.Drawing.Point(172, 12);
+            this.pbMainGrafWin.Location = new System.Drawing.Point(172, 27);
             this.pbMainGrafWin.Name = "pbMainGrafWin";
-            this.pbMainGrafWin.Size = new System.Drawing.Size(976, 459);
+            this.pbMainGrafWin.Size = new System.Drawing.Size(976, 444);
             this.pbMainGrafWin.TabIndex = 0;
             this.pbMainGrafWin.TabStop = false;
             this.pbMainGrafWin.Click += new System.EventHandler(this.pbMainGrafWin_Click);
@@ -157,15 +167,21 @@
             this.cbThicknes.FormattingEnabled = true;
             this.cbThicknes.Items.AddRange(new object[] {
             "1",
+            "1,5",
             "2",
+            "2,5",
             "3",
+            "3,5",
             "4",
-            "5"});
+            "4,5",
+            "5",
+            "5,5"});
             this.cbThicknes.Location = new System.Drawing.Point(85, 72);
             this.cbThicknes.Name = "cbThicknes";
             this.cbThicknes.Size = new System.Drawing.Size(67, 21);
             this.cbThicknes.TabIndex = 8;
             this.cbThicknes.Text = "1";
+            this.cbThicknes.SelectedIndexChanged += new System.EventHandler(this.cbThicknes_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -297,6 +313,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(150, 186);
             this.listBox1.TabIndex = 4;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // groupBox1
             // 
@@ -313,9 +330,9 @@
             // gbShapes
             // 
             this.gbShapes.Controls.Add(this.button1);
-            this.gbShapes.Location = new System.Drawing.Point(8, 12);
+            this.gbShapes.Location = new System.Drawing.Point(8, 31);
             this.gbShapes.Name = "gbShapes";
-            this.gbShapes.Size = new System.Drawing.Size(158, 88);
+            this.gbShapes.Size = new System.Drawing.Size(79, 88);
             this.gbShapes.TabIndex = 6;
             this.gbShapes.TabStop = false;
             this.gbShapes.Text = "Фигуры";
@@ -330,19 +347,98 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1148, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // файлToolStripMenuItem
+            // 
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьToolStripMenuItem,
+            this.сохранитьToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.выходToolStripMenuItem});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // открытьToolStripMenuItem
+            // 
+            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.открытьToolStripMenuItem.Text = "Открыть";
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            // 
+            // выходToolStripMenuItem
+            // 
+            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.выходToolStripMenuItem.Text = "Выход";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(93, 42);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(73, 24);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Добавить";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // cmdMoveLine
+            // 
+            this.cmdMoveLine.Location = new System.Drawing.Point(93, 65);
+            this.cmdMoveLine.Name = "cmdMoveLine";
+            this.cmdMoveLine.Size = new System.Drawing.Size(73, 24);
+            this.cmdMoveLine.TabIndex = 9;
+            this.cmdMoveLine.Text = "Переместить";
+            this.cmdMoveLine.UseVisualStyleBackColor = true;
+            this.cmdMoveLine.Click += new System.EventHandler(this.cmdMoveLine_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(93, 88);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(73, 24);
+            this.button4.TabIndex = 10;
+            this.button4.Text = "Удалить";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1148, 496);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.cmdMoveLine);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.gbShapes);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbPen);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pbMainGrafWin);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -350,6 +446,8 @@
             this.gbPen.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.gbShapes.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -380,6 +478,15 @@
         private System.Windows.Forms.ComboBox cbThicknes;
         private System.Windows.Forms.Button cmdSelectColor;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cmdMoveLine;
+        private System.Windows.Forms.Button button4;
     }
 }
 
