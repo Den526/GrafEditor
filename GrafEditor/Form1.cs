@@ -16,8 +16,8 @@ namespace GrafEditor
             InitializeComponent();
         }
         Pen p1;       //перо
-        Point PBegin; // точки для рисования простой линии
-        Point PEnd;
+        Point PMoveBegin; // точки для рисования простой линии
+        Point PMoveEnd;
         List<FractureLine> FL = new List<FractureLine>();
         //List<FractureLine> FL_tmp = new List<FractureLine>();
         int IndActiveFL = -1;  //индекс активной линии, с которой в данный момент работает пользователь
@@ -25,6 +25,8 @@ namespace GrafEditor
         float ThicknesLine = 1;  //толщина активной линии
         Color ColorLine = Color.Black; //цвет активной линии
         bool flMoveLine = false;
+        bool flAddLine = false;
+        bool flAddPoint = false;
 
         private void pbMainGrafWin_Click(object sender, EventArgs e)
         {
@@ -33,57 +35,87 @@ namespace GrafEditor
 
         private void pbMainGrafWin_MouseClick(object sender, MouseEventArgs e)
         {
+            //событие клика = MouseUP
             if (e.Button == MouseButtons.Left)
             {
                 if (IndActiveFL >= 0)
                 {
-                    //рисуем точку
-                    Point ptmp = new Point(e.X, e.Y);
-
-                    FL[IndActiveFL].points.Add(ptmp);
-                    pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
+                    if (flMoveLine)
+                    {
+                        FL[IndActiveFL].Move(e.X - PMoveBegin.X, e.Y - PMoveBegin.Y); //переместить всю ломаную на разницу перемещения
+                        flMoveLine = false;  //отпустили мышь - хватит двигать
+                        pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);  //рисуем обновленную картину
+                    }
+                    if (flAddPoint)
+                    {
+                        //добавляем новую точку и рисуем новый отрезок
+                        Point ptmp = new Point(e.X, e.Y);
+                        FL[IndActiveFL].AddPoint(ptmp);
+                        pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
+                    }
                 }
             }
             else if (e.Button == MouseButtons.Right)
             {
                 //закончить рисовать линию
-                IndActiveFL = -1;
+                flAddPoint = false;
                 pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
             }
 
         }
+        private void pbMainGrafWin_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (IndActiveFL >= 0)
+                {
+                    PMoveBegin = new Point(e.X, e.Y);
+                    flMoveLine = true;
+                    //pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
+                }
+            }
+        }
         private void pbMainGrafWin_MouseMove(object sender, MouseEventArgs e)
         {
             FractureLine FL_tmp = new FractureLine();   //временная линия
-
-            if (flMoveLine)
-            {
-                for (int ti = 0; ti < FL[IndActiveFL].points.Count; ti++)
-                {
-
-                }
-            }
             if (IndActiveFL >= 0)
             {
-                if (FL[IndActiveFL].points.Count > 0)
+                if (flMoveLine)
                 {
+                    PMoveEnd = new Point(e.X, e.Y);
                     FL_tmp.Pero = new Pen(Color.Silver, 1);
-                    IndActivePoint = FL[IndActiveFL].points.Count - 1;
-                    FL_tmp.points.Add(FL[IndActiveFL].points[IndActivePoint]);
-                    FL_tmp.points.Add(new Point(e.X, e.Y));
+                    for (int ti = 0; ti < FL[IndActiveFL].points.Count; ti++)
+                    {
+                        FL_tmp.AddPoint(FL[IndActiveFL].points[ti]);
+                    } 
+                    FL_tmp.Move(e.X - PMoveBegin.X, e.Y - PMoveBegin.Y);
                     pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
-
                     pbMainGrafWin.Image = PaintBitmap((Bitmap)pbMainGrafWin.Image, FL_tmp);
                 }
+                if (flAddPoint)
+                {
+                    if (FL[IndActiveFL].points.Count > 0)
+                    {
+                        FL_tmp.Pero = new Pen(Color.Silver, 1);
+                        IndActivePoint = FL[IndActiveFL].points.Count - 1;
+                        FL_tmp.AddPoint(FL[IndActiveFL].points[IndActivePoint]);
+                        FL_tmp.AddPoint(new Point(e.X, e.Y));
+                        pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
+
+                        pbMainGrafWin.Image = PaintBitmap((Bitmap)pbMainGrafWin.Image, FL_tmp);
+                    }
+                }
+
             }
-            lblCoordPB1.Text = e.X.ToString() + " : " + e.Y.ToString();
+            lblCoordPB1.Text = e.X.ToString() + " : " + e.Y.ToString();  //показать координаты мышки в рабочей области
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             //создать новую линию
             FractureLine fl_tmp = new FractureLine();
-            
+            flAddLine = true;
+            flAddPoint = true;
             fl_tmp.Pero = p1;
             FL.Add(fl_tmp);
             IndActiveFL = FL.Count - 1;
@@ -226,13 +258,10 @@ namespace GrafEditor
             }
         }
 
-        private void cmdMoveLine_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            //переместить линию
-            if (IndActiveFL >= 0)
-            {
-                flMoveLine = true;
-            }
+            flAddPoint = true;
+            flMoveLine = false;
         }
 
     }

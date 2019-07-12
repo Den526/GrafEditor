@@ -33,6 +33,18 @@ namespace GrafEditor
                 tchk = value;
             }
         }
+        public void Move(int x, int y)
+        {
+            for (int i = 0; i < tchk.Count; i++)
+            {
+                this.tchk[i] = new Point(this.tchk[i].X + x, this.tchk[i].Y + y);
+                
+            }
+        }
+        public void AddPoint(Point p)
+        {
+            this.tchk.Add(p);
+        }
         public FractureLine Clone()
         {
             FractureLine f = new FractureLine();
