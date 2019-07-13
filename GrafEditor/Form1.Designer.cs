@@ -59,6 +59,10 @@
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.lblTempX = new System.Windows.Forms.Label();
+            this.lblTempY = new System.Windows.Forms.Label();
+            this.Tdy = new System.Windows.Forms.Label();
+            this.Tdx = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.gbPen.SuspendLayout();
@@ -73,7 +77,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbMainGrafWin.BackColor = System.Drawing.Color.White;
-            this.pbMainGrafWin.Location = new System.Drawing.Point(172, 27);
+            this.pbMainGrafWin.Location = new System.Drawing.Point(172, 23);
             this.pbMainGrafWin.Name = "pbMainGrafWin";
             this.pbMainGrafWin.Size = new System.Drawing.Size(976, 444);
             this.pbMainGrafWin.TabIndex = 0;
@@ -82,6 +86,7 @@
             this.pbMainGrafWin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseClick);
             this.pbMainGrafWin.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDown);
             this.pbMainGrafWin.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseMove);
+            this.pbMainGrafWin.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDoubleClick);
             // 
             // statusStrip1
             // 
@@ -411,12 +416,56 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // lblTempX
+            // 
+            this.lblTempX.AutoSize = true;
+            this.lblTempX.Location = new System.Drawing.Point(190, 43);
+            this.lblTempX.MinimumSize = new System.Drawing.Size(40, 0);
+            this.lblTempX.Name = "lblTempX";
+            this.lblTempX.Size = new System.Drawing.Size(40, 13);
+            this.lblTempX.TabIndex = 11;
+            this.lblTempX.Text = "___";
+            // 
+            // lblTempY
+            // 
+            this.lblTempY.AutoSize = true;
+            this.lblTempY.Location = new System.Drawing.Point(190, 65);
+            this.lblTempY.MinimumSize = new System.Drawing.Size(40, 0);
+            this.lblTempY.Name = "lblTempY";
+            this.lblTempY.Size = new System.Drawing.Size(40, 13);
+            this.lblTempY.TabIndex = 12;
+            this.lblTempY.Text = "___";
+            // 
+            // Tdy
+            // 
+            this.Tdy.AutoSize = true;
+            this.Tdy.Location = new System.Drawing.Point(190, 132);
+            this.Tdy.MinimumSize = new System.Drawing.Size(40, 0);
+            this.Tdy.Name = "Tdy";
+            this.Tdy.Size = new System.Drawing.Size(40, 13);
+            this.Tdy.TabIndex = 14;
+            this.Tdy.Text = "___";
+            // 
+            // Tdx
+            // 
+            this.Tdx.AutoSize = true;
+            this.Tdx.Location = new System.Drawing.Point(190, 110);
+            this.Tdx.MinimumSize = new System.Drawing.Size(40, 0);
+            this.Tdx.Name = "Tdx";
+            this.Tdx.Size = new System.Drawing.Size(40, 13);
+            this.Tdx.TabIndex = 13;
+            this.Tdx.Text = "___";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1148, 496);
+            this.Controls.Add(this.Tdy);
+            this.Controls.Add(this.Tdx);
+            this.Controls.Add(this.lblTempY);
+            this.Controls.Add(this.lblTempX);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.gbShapes);
@@ -476,6 +525,10 @@
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label lblTempX;
+        private System.Windows.Forms.Label lblTempY;
+        private System.Windows.Forms.Label Tdy;
+        private System.Windows.Forms.Label Tdx;
     }
 }
 

@@ -28,6 +28,7 @@ namespace GrafEditor
         bool flMovePoint = false; //флаг разрешения перемещения точки
         bool flAddLine = false;  //флаг добавления линии
         bool flAddPoint = false; //флаг добавления точки
+        bool flFindLine = false;
 
         private void pbMainGrafWin_Click(object sender, EventArgs e)
         {
@@ -70,8 +71,29 @@ namespace GrafEditor
             }
 
         }
+        private void pbMainGrafWin_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (IndActiveFL >= 0)
+                {
+                    //если нет добавления или движения точки
+                    if (!flAddPoint && !flMovePoint)
+                    {
+                        if (IndActiveFL >= 0 && IndActivePoint >= 0)
+                        {
+                            //Поиск линии и отрезка прошло в модуле MouseClick
+                            //т.е. если индексы активных линии и точки не 0 - добавляем новую точку
+                            FL[IndActiveFL].points.Insert(IndActivePoint+1, new Point(e.X, e.Y));
+                            pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
+                        }
+                    }
+                }
+            }
+        }
         private void pbMainGrafWin_MouseDown(object sender, MouseEventArgs e)
         {
+
             if (e.Button == MouseButtons.Left)
             {
                 if (IndActiveFL >= 0)
@@ -94,32 +116,57 @@ namespace GrafEditor
                             }
                         }
                     }
-                    if (!flMovePoint) flMoveLine = true;
-                    //pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
-                    
+                    if (!flAddPoint && !flMovePoint)
+                    {
+                        //ищем наведение мышкой на какую либо линию
+                        for (int i = 0; i < FL.Count; i++)
+                        {
+                            IndActivePoint = FL[i].InsidePoint(new Point(e.X, e.Y));
+                            if (IndActivePoint >= 0)
+                            {
+                                flMoveLine = true;
+                                IndActiveFL = i;
+                                listBox1.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
                 }
             }
         }
         private void pbMainGrafWin_MouseMove(object sender, MouseEventArgs e)
         {
-            FractureLine FL_tmp = new FractureLine();   //временная линия
+            //определяем наведение курсора на какую либо фигуру
             if (IndActiveFL >= 0)
             {
-                FL_tmp.Pero = new Pen(Color.Silver, 1);
-                if (flMoveLine)
+                //ищем наведение мышкой на какую либо линию и подсвечиваем 
+                for (int i = 0; i < FL.Count; i++)
                 {
-                    //PMoveEnd = new Point(e.X, e.Y);
-
-                    for (int ti = 0; ti < FL[IndActiveFL].points.Count; ti++)
+                    int ti = FL[i].InsidePoint(new Point(e.X, e.Y));
+                    if (ti >= 0)
                     {
-                        FL_tmp.AddPoint(FL[IndActiveFL].points[ti]);
-                    } 
+                        lblTempX.BackColor = Color.LimeGreen;
+                        break;
+                    }
+                    else lblTempX.BackColor = Color.Coral;
+                }
+
+                FractureLine FL_tmp = new FractureLine();   //временная линия    
+                FL_tmp.Pero = new Pen(Color.Silver, 1);
+                if (flMoveLine && e.Button == MouseButtons.Left)
+                {
+                    //двигать линию
+                    //созданаем копию из активной линии во временную линию
+                    FL_tmp = FL[IndActiveFL].Clone();
+                    FL_tmp.Pero = new Pen(Color.Silver, 1);
+
+                    //таскаем временную линию за мышью
                     FL_tmp.Move(e.X - PMoveBegin.X, e.Y - PMoveBegin.Y);
                     pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
                     pbMainGrafWin.Image = PaintBitmap((Bitmap)pbMainGrafWin.Image, FL_tmp);
                 }
                 if (flMovePoint)
-                {
+                {//перемещаем точки в активной линии
                     if (IndActivePoint == 0)
                     {
                         //обработка перемещения первой точки
@@ -135,7 +182,7 @@ namespace GrafEditor
                     }
                     else if (IndActivePoint == FL[IndActiveFL].points.Count - 1)
                     {
-                        //обработка перемещения первой точки
+                        //обработка перемещения последней точки
                         FL_tmp.AddPoint(FL[IndActiveFL].points[IndActivePoint - 1]);
                         FL_tmp.AddPoint(new Point(e.X, e.Y));
                     }
@@ -249,8 +296,10 @@ namespace GrafEditor
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //добавление новой точки в конец линии
             flAddPoint = true;
             flMoveLine = false;
+            flMovePoint = false;
         }
 
     }
