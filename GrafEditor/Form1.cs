@@ -33,6 +33,7 @@ namespace GrafEditor
         private void Form1_Load(object sender, EventArgs e)
         {
             p1 = new Pen(ColorLine, ThicknesLine);
+            
         }
 
         private void pbMainGrafWin_MouseClick(object sender, MouseEventArgs e)
@@ -244,11 +245,11 @@ namespace GrafEditor
 
         private void SelectColor_Click(object sender, EventArgs e)
         {
-            //тут пока плохо работает
             //выбор цвета линии кликами по лейблам
-            //p1 = new Pen(label11.BackColor, Convert.ToInt16(cbThicknes.Text));
-            //toolStripStatusLabel1.BackColor = label11.BackColor;
-            //if (IndActiveFL >= 0) FL[IndActiveFL].Pero = p1;
+            Label l1 = (Label)sender;
+            ChangeColor(l1.BackColor);
+            //l1.BorderStyle = BorderStyle.FixedSingle;
+
         }
 
         private void cmdSelectColor_Click(object sender, EventArgs e)
@@ -258,18 +259,21 @@ namespace GrafEditor
             DialogResult result = SelColorDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                ColorLine = SelColorDialog.Color;
+                ChangeColor(SelColorDialog.Color);
+            }
+        }
+        private void ChangeColor(Color c)
+        {
+                ColorLine = c;
 
                 p1 = new Pen(ColorLine, ThicknesLine);
-                tsslStatusActiveColor.BackColor = SelColorDialog.Color;
+                tsslStatusActiveColor.BackColor = c;
                 if (IndActiveFL >= 0)
                 {
                     FL[IndActiveFL].Pero = p1;
                     pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
                 }
-            }
         }
-
         private void cbThicknes_SelectedIndexChanged(object sender, EventArgs e)
         {
             ThicknesLine = (float)Convert.ToDecimal(cbThicknes.Text);
@@ -286,6 +290,13 @@ namespace GrafEditor
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             IndActiveFL = lbListOfLines.SelectedIndex;
+            //Считываем значение пера во врем переменные исходя из значений выделенной линии
+            ThicknesLine = FL[IndActiveFL].Pero.Width;
+            ColorLine = FL[IndActiveFL].Pero.Color;
+
+            //отмечаем в визуальных компонентах цвет и толщину
+            tsslStatusActiveColor.BackColor = ColorLine;
+            cbThicknes.Text = ThicknesLine.ToString();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -341,6 +352,7 @@ namespace GrafEditor
                 FileInfo fi = new FileInfo(OFD.FileName);
                 if (fi.Exists)
                 {
+                    lbListOfLines.Items.Clear();
                     if (OpenFile(fi.FullName))
                     {
                         PathActiveFile = fi.FullName;

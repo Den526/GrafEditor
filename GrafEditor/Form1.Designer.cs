@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pbMainGrafWin = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblCoordPB1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslStatusActiveColor = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslFindLine = new System.Windows.Forms.ToolStripStatusLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.gbPen = new System.Windows.Forms.GroupBox();
-            this.cmdSelectColor = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.cbThicknes = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -51,7 +49,6 @@
             this.lbListOfLines = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gbShapes = new System.Windows.Forms.GroupBox();
-            this.cmdAddLine = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,29 +59,16 @@
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmdAddPoint = new System.Windows.Forms.Button();
             this.cmdDelLine = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).BeginInit();
+            this.cmdAddLine = new System.Windows.Forms.Button();
+            this.cmdSelectColor = new System.Windows.Forms.Button();
+            this.pbMainGrafWin = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
             this.gbPen.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbShapes.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pbMainGrafWin
-            // 
-            this.pbMainGrafWin.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbMainGrafWin.BackColor = System.Drawing.Color.White;
-            this.pbMainGrafWin.Location = new System.Drawing.Point(172, 23);
-            this.pbMainGrafWin.Name = "pbMainGrafWin";
-            this.pbMainGrafWin.Size = new System.Drawing.Size(976, 444);
-            this.pbMainGrafWin.TabIndex = 0;
-            this.pbMainGrafWin.TabStop = false;
-            this.pbMainGrafWin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseClick);
-            this.pbMainGrafWin.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDoubleClick);
-            this.pbMainGrafWin.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDown);
-            this.pbMainGrafWin.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseMove);
             // 
             // statusStrip1
             // 
@@ -152,16 +136,6 @@
             this.gbPen.TabStop = false;
             this.gbPen.Text = "Настройки пера";
             // 
-            // cmdSelectColor
-            // 
-            this.cmdSelectColor.Location = new System.Drawing.Point(66, 40);
-            this.cmdSelectColor.Name = "cmdSelectColor";
-            this.cmdSelectColor.Size = new System.Drawing.Size(86, 26);
-            this.cmdSelectColor.TabIndex = 7;
-            this.cmdSelectColor.Text = "выбор цвета";
-            this.cmdSelectColor.UseVisualStyleBackColor = true;
-            this.cmdSelectColor.Click += new System.EventHandler(this.cmdSelectColor_Click);
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -197,7 +171,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Gray;
-            this.label11.Location = new System.Drawing.Point(44, 40);
+            this.label11.Location = new System.Drawing.Point(44, 49);
             this.label11.MinimumSize = new System.Drawing.Size(13, 13);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(13, 13);
@@ -209,7 +183,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(25, 40);
+            this.label10.Location = new System.Drawing.Point(25, 49);
             this.label10.MinimumSize = new System.Drawing.Size(13, 13);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(13, 13);
@@ -221,7 +195,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(6, 40);
+            this.label9.Location = new System.Drawing.Point(6, 49);
             this.label9.MinimumSize = new System.Drawing.Size(13, 13);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(13, 13);
@@ -233,7 +207,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Olive;
-            this.label8.Location = new System.Drawing.Point(139, 16);
+            this.label8.Location = new System.Drawing.Point(63, 32);
             this.label8.MinimumSize = new System.Drawing.Size(13, 13);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(13, 13);
@@ -245,7 +219,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Fuchsia;
-            this.label7.Location = new System.Drawing.Point(120, 16);
+            this.label7.Location = new System.Drawing.Point(44, 32);
             this.label7.MinimumSize = new System.Drawing.Size(13, 13);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(13, 13);
@@ -257,7 +231,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Blue;
-            this.label6.Location = new System.Drawing.Point(101, 16);
+            this.label6.Location = new System.Drawing.Point(25, 32);
             this.label6.MinimumSize = new System.Drawing.Size(13, 13);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(13, 13);
@@ -269,7 +243,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Aqua;
-            this.label5.Location = new System.Drawing.Point(82, 16);
+            this.label5.Location = new System.Drawing.Point(6, 32);
             this.label5.MinimumSize = new System.Drawing.Size(13, 13);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(13, 13);
@@ -346,17 +320,6 @@
             this.gbShapes.TabIndex = 6;
             this.gbShapes.TabStop = false;
             this.gbShapes.Text = "Фигуры";
-            // 
-            // cmdAddLine
-            // 
-            this.cmdAddLine.BackgroundImage = global::GrafEditor.Properties.Resources.FractureLine;
-            this.cmdAddLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cmdAddLine.Location = new System.Drawing.Point(9, 19);
-            this.cmdAddLine.Name = "cmdAddLine";
-            this.cmdAddLine.Size = new System.Drawing.Size(29, 28);
-            this.cmdAddLine.TabIndex = 7;
-            this.cmdAddLine.UseVisualStyleBackColor = true;
-            this.cmdAddLine.Click += new System.EventHandler(this.button1_Click);
             // 
             // menuStrip1
             // 
@@ -441,6 +404,44 @@
             this.cmdDelLine.UseVisualStyleBackColor = true;
             this.cmdDelLine.Click += new System.EventHandler(this.button4_Click);
             // 
+            // cmdAddLine
+            // 
+            this.cmdAddLine.BackgroundImage = global::GrafEditor.Properties.Resources.FractureLine;
+            this.cmdAddLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdAddLine.Location = new System.Drawing.Point(9, 19);
+            this.cmdAddLine.Name = "cmdAddLine";
+            this.cmdAddLine.Size = new System.Drawing.Size(29, 28);
+            this.cmdAddLine.TabIndex = 7;
+            this.cmdAddLine.UseVisualStyleBackColor = true;
+            this.cmdAddLine.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // cmdSelectColor
+            // 
+            this.cmdSelectColor.BackgroundImage = global::GrafEditor.Properties.Resources.Palitra;
+            this.cmdSelectColor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdSelectColor.Location = new System.Drawing.Point(85, 16);
+            this.cmdSelectColor.Name = "cmdSelectColor";
+            this.cmdSelectColor.Size = new System.Drawing.Size(67, 50);
+            this.cmdSelectColor.TabIndex = 7;
+            this.cmdSelectColor.UseVisualStyleBackColor = true;
+            this.cmdSelectColor.Click += new System.EventHandler(this.cmdSelectColor_Click);
+            // 
+            // pbMainGrafWin
+            // 
+            this.pbMainGrafWin.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbMainGrafWin.BackColor = System.Drawing.Color.White;
+            this.pbMainGrafWin.Location = new System.Drawing.Point(172, 23);
+            this.pbMainGrafWin.Name = "pbMainGrafWin";
+            this.pbMainGrafWin.Size = new System.Drawing.Size(976, 444);
+            this.pbMainGrafWin.TabIndex = 0;
+            this.pbMainGrafWin.TabStop = false;
+            this.pbMainGrafWin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseClick);
+            this.pbMainGrafWin.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDoubleClick);
+            this.pbMainGrafWin.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDown);
+            this.pbMainGrafWin.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseMove);
+            // 
             // frMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -461,7 +462,6 @@
             this.Text = "Графический векторный редактор";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.gbPen.ResumeLayout(false);
@@ -470,6 +470,7 @@
             this.gbShapes.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
