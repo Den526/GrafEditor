@@ -9,16 +9,16 @@ namespace GrafEditor
     class FractureLine
     {
         private Pen pen;    //перо
+        private string _Name; //отображаемое имя линии
+        public string Name
+        {
+            get {return _Name; }
+            set {_Name = value;}
+        }
         public Pen Pero
         {
-            get 
-            {
-                return pen;
-            }
-            set 
-            {
-                pen = value;
-            }
+            get {return pen;  }
+            set {pen = value; }
         }
         //массив точек
         private List<Point> tchk = new List<Point>();
@@ -38,7 +38,6 @@ namespace GrafEditor
             for (int i = 0; i < tchk.Count; i++)
             {
                 this.tchk[i] = new Point(this.tchk[i].X + x, this.tchk[i].Y + y);
-                
             }
         }
         public void AddPoint(Point p)
@@ -71,10 +70,10 @@ namespace GrafEditor
                 dy = p2.Y - p1.Y;
                 ex = p.X - p1.X;
                 ey = p.Y - p1.Y;
-                //Векторное произведение векторов p1-p и p1-p2 (50 - допустимая уставка оклонения)
+                //Векторное произведение векторов p1-p и p1-p2 (50 - допустимая уставка отклонения, Note! для тонких линий - важна точность наведения)
                 if (Math.Abs(ey * dx - ex * dy) <= 50 * this.pen.Width)
                 {
-                    //вычисляем скалярное прозведение p-p1 и p-p2
+                    //вычисляем скалярное прозведение p-p1 и p-p2, если оно <= 0 - точка принадлежит отрезку
                     if ((p1.X - p.X) * (p2.X - p.X) + (p1.Y - p.Y) * (p2.Y - p.Y) <= 0) return ti;
                 }
             }

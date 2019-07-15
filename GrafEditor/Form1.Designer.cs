@@ -1,6 +1,6 @@
 ﻿namespace GrafEditor
 {
-    partial class Form1
+    partial class frMainForm
     {
         /// <summary>
         /// Требуется переменная конструктора.
@@ -53,10 +53,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.lblTempX = new System.Windows.Forms.Label();
@@ -84,9 +85,9 @@
             this.pbMainGrafWin.TabStop = false;
             this.pbMainGrafWin.Click += new System.EventHandler(this.pbMainGrafWin_Click);
             this.pbMainGrafWin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseClick);
+            this.pbMainGrafWin.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDoubleClick);
             this.pbMainGrafWin.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDown);
             this.pbMainGrafWin.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseMove);
-            this.pbMainGrafWin.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDoubleClick);
             // 
             // statusStrip1
             // 
@@ -365,36 +366,45 @@
             // файлToolStripMenuItem
             // 
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.открытьToolStripMenuItem,
-            this.сохранитьToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.выходToolStripMenuItem});
+            this.tsmiOpen,
+            this.tsmiSave,
+            this.tsmiSaveAs,
+            this.tsSeparator,
+            this.tsmiExit});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
-            // открытьToolStripMenuItem
+            // tsmiOpen
             // 
-            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.открытьToolStripMenuItem.Text = "Открыть";
+            this.tsmiOpen.Name = "tsmiOpen";
+            this.tsmiOpen.Size = new System.Drawing.Size(165, 22);
+            this.tsmiOpen.Text = "Открыть";
+            this.tsmiOpen.Click += new System.EventHandler(this.tsmiOpen_Click);
             // 
-            // сохранитьToolStripMenuItem
+            // tsmiSave
             // 
-            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.tsmiSave.Name = "tsmiSave";
+            this.tsmiSave.Size = new System.Drawing.Size(165, 22);
+            this.tsmiSave.Text = "Сохранить";
             // 
-            // toolStripSeparator1
+            // tsmiSaveAs
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(129, 6);
+            this.tsmiSaveAs.Name = "tsmiSaveAs";
+            this.tsmiSaveAs.Size = new System.Drawing.Size(165, 22);
+            this.tsmiSaveAs.Text = "Сохранить как ...";
+            this.tsmiSaveAs.Click += new System.EventHandler(this.tsmiSaveAs_Click);
             // 
-            // выходToolStripMenuItem
+            // tsSeparator
             // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
+            this.tsSeparator.Name = "tsSeparator";
+            this.tsSeparator.Size = new System.Drawing.Size(162, 6);
+            // 
+            // tsmiExit
+            // 
+            this.tsmiExit.Name = "tsmiExit";
+            this.tsmiExit.Size = new System.Drawing.Size(165, 22);
+            this.tsmiExit.Text = "Выход";
             // 
             // button2
             // 
@@ -456,7 +466,7 @@
             this.Tdx.TabIndex = 13;
             this.Tdx.Text = "___";
             // 
-            // Form1
+            // frMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -475,8 +485,10 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pbMainGrafWin);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "frMainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Графический векторный редактор";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).EndInit();
             this.statusStrip1.ResumeLayout(false);
@@ -519,16 +531,17 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpen;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSaveAs;
+        private System.Windows.Forms.ToolStripSeparator tsSeparator;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExit;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label lblTempX;
         private System.Windows.Forms.Label lblTempY;
         private System.Windows.Forms.Label Tdy;
         private System.Windows.Forms.Label Tdx;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSave;
     }
 }
 

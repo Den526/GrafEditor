@@ -6,12 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace GrafEditor
 {
-    public partial class Form1 : Form
+    public partial class frMainForm : Form
     {
-        public Form1()
+        public frMainForm()
         {
             InitializeComponent();
         }
@@ -67,6 +68,7 @@ namespace GrafEditor
             {
                 //закончить рисовать линию
                 flAddPoint = false;
+                flAddLine = false;
                 pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
             }
 
@@ -77,7 +79,7 @@ namespace GrafEditor
             {
                 if (IndActiveFL >= 0)
                 {
-                    //если нет добавления или движения точки
+                    //если закрыты флаги добавления или движения точки
                     if (!flAddPoint && !flMovePoint)
                     {
                         if (IndActiveFL >= 0 && IndActivePoint >= 0)
@@ -136,21 +138,26 @@ namespace GrafEditor
         }
         private void pbMainGrafWin_MouseMove(object sender, MouseEventArgs e)
         {
-            //определяем наведение курсора на какую либо фигуру
-            if (IndActiveFL >= 0)
-            {
-                //ищем наведение мышкой на какую либо линию и подсвечиваем 
+            //ищем наведение мышкой на какую либо линию и подсвечиваем
+            if (!flAddLine && !flAddPoint && !flMoveLine && !flMovePoint)
                 for (int i = 0; i < FL.Count; i++)
                 {
                     int ti = FL[i].InsidePoint(new Point(e.X, e.Y));
                     if (ti >= 0)
                     {
                         lblTempX.BackColor = Color.LimeGreen;
+                        listBox1.SelectedIndex = i;
                         break;
                     }
-                    else lblTempX.BackColor = Color.Coral;
+                    else
+                    {
+                        //listBox1.SelectedIndex = -1;
+                        lblTempX.BackColor = Color.Coral;
+                    }
                 }
-
+            //определяем наведение курсора на какую либо фигуру
+            if (IndActiveFL >= 0)
+            {
                 FractureLine FL_tmp = new FractureLine();   //временная линия    
                 FL_tmp.Pero = new Pen(Color.Silver, 1);
                 if (flMoveLine && e.Button == MouseButtons.Left)
@@ -214,10 +221,11 @@ namespace GrafEditor
             flAddLine = true;
             flAddPoint = true;
             fl_tmp.Pero = p1;
+            fl_tmp.Name = "Линия" + (FL.Count+1).ToString();
             FL.Add(fl_tmp);
             IndActiveFL = FL.Count - 1;
-            //FL[IndActiveFL].Pero = p1;
-            listBox1.Items.Add("Линия" + IndActiveFL.ToString());
+            listBox1.Items.Add(fl_tmp.Name);
+
             listBox1.SelectedIndex = listBox1.Items.Count - 1;
         }
 
@@ -302,5 +310,110 @@ namespace GrafEditor
             flMovePoint = false;
         }
 
+        private void tsmiSaveAs_Click(object sender, EventArgs e)
+        {
+            //обратока клика по меню Файл - Сохранить как...
+            SaveFileDialog SFD = new SaveFileDialog();  //создаем диалоговое окно сохранения в файл
+            SFD.Filter = "*.gve files (*.gve)|*.gve|All files (*.*)|*.*";
+            DialogResult result = SFD.ShowDialog();     //открываем окно и ждем его завершения
+            if (result == DialogResult.OK)              //если пользователь нажал Сохранить (или ОК)
+            {
+                FileInfo fi = new FileInfo(SFD.FileName);
+                MessageBox.Show(fi.DirectoryName);
+                if (Directory.Exists(fi.DirectoryName) && fi.Name != "" && fi.Name != String.Empty)
+                {
+                    //если папка сужествуюет и имя файла не пустое и не null
+                    if (!SaveFile(fi.FullName)) MessageBox.Show("При сохранении файла произошла ошибка. Проверьте правильность указания пути и имени файла. Если эти данные верны и вы все равно видите эту ошибку - обратитесь к разработчику", "Ошибка сохранения файла", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void tsmiOpen_Click(object sender, EventArgs e)
+        {
+            //обратока клика по меню Файл - Открыть
+            //готовим и открываем диалоговое окно открытие файла
+            OpenFileDialog OFD = new OpenFileDialog();
+            OFD.Filter = "*.gve files (*.gve)|*.gve|All files (*.*)|*.*";
+            DialogResult result = OFD.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                //если пользователь нажал ОК, проверим на всякий сл. а существует ли такой файл
+                FileInfo fi = new FileInfo(OFD.FileName);
+                if (fi.Exists)
+                {
+                    if (!OpenFile(fi.FullName)) MessageBox.Show("При открытии файла произошла ошибка. Проверьте правильность указания пути и имени файла. Если эти данные верны и вы все равно видите эту ошибку - обратитесь к разработчику", "Ошибка открытия файла", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private bool SaveFile(string Path)
+        {
+            try
+            {
+                using (BinaryWriter writer = new BinaryWriter(File.Open(SFD.FileName, FileMode.OpenOrCreate)))
+                {
+                    writer.Write("file graphic vector editor GrafEdit");
+                    writer.Write(FL.Count); //int - кол-во линий
+                    //перебираем линии с изломами
+                    foreach (FractureLine fl in FL)
+                    {
+                        writer.Write(fl.Name);       //str - Имя
+                        writer.Write("InfoPen;");    //str - Перо
+                        writer.Write(fl.Pero.Width); //float - толщина пера
+                        writer.Write(fl.Pero.Color.ToArgb());  //int32 - цвет пера
+                        writer.Write("InfoPoints;");   //str   - инфо о точках
+                        writer.Write(fl.points.Count); //int   - сколько всего точек в линии с изломами
+                        foreach (Point p1 in fl.points)
+                        {
+                            writer.Write(p1.X);       //int - коор.X
+                            writer.Write(p1.Y);       //int - коор.Y
+                        }
+                    }
+                    writer.Close();
+                }
+                return true;
+            }
+            catch { return false; }
+
+        }
+        private bool OpenFile(string Path)
+        {
+            try
+            {
+                using (BinaryReader reader = new BinaryReader(File.Open(Path, FileMode.Open)))
+                {
+                    string info = reader.ReadString(); //вводное инфо о файле
+                    int countLine = reader.ReadInt32(); //кол-во строк
+                    FL.Clear();                         //чистим существующий список линий
+                    for (int i = 0; i < countLine; i++)
+                    {
+                        //читаем с файла линии во временную линию
+                        FractureLine fl_tmp = new FractureLine();
+                        fl_tmp.Name = reader.ReadString();
+
+                        info = reader.ReadString();  //инфо о пере для  линии
+                        float PenWidth = reader.ReadSingle();  //указываем значение пера - толщина, затем цвет
+                        Color PenColor = Color.FromArgb(reader.ReadInt32());
+                        fl_tmp.Pero = new Pen(PenColor, PenWidth);
+
+                        info = reader.ReadString();  //метка о начале инфо о точках
+                        int countPoint = reader.ReadInt32(); //кол-во точек
+                        for (int ti = 0; ti < countPoint; ti++)
+                        {
+                            //координаты, и добавляем точку
+                            int x = reader.ReadInt32();
+                            int y = reader.ReadInt32();
+                            Point p1 = new Point(x, y);
+                            fl_tmp.AddPoint(p1);
+                        }
+                        listBox1.Items.Add(fl_tmp.Name); //добавляем в список линию
+                        FL.Add(fl_tmp);                  //добавляем линию в List
+                    }
+                    pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL); //рисуем в PictBoxe
+                    reader.Close(); //закрываем файл
+                }
+                return true;
+            }
+            catch { return false; }
+        }
     }
 }

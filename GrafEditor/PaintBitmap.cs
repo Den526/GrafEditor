@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace GrafEditor
 {
-    public partial class Form1
+    public partial class frMainForm
     {
         //*********************************************** Прорисовка полная *****************************************//
         private Bitmap PaintBitmap(int width, int height, List<FractureLine> flt)
