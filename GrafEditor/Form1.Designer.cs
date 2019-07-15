@@ -31,7 +31,8 @@
             this.pbMainGrafWin = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblCoordPB1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslStatusActiveColor = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslFindLine = new System.Windows.Forms.ToolStripStatusLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.gbPen = new System.Windows.Forms.GroupBox();
             this.cmdSelectColor = new System.Windows.Forms.Button();
@@ -47,23 +48,20 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbListOfLines = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gbShapes = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cmdAddLine = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiNew = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.lblTempX = new System.Windows.Forms.Label();
-            this.lblTempY = new System.Windows.Forms.Label();
-            this.Tdy = new System.Windows.Forms.Label();
-            this.Tdx = new System.Windows.Forms.Label();
+            this.cmdAddPoint = new System.Windows.Forms.Button();
+            this.cmdDelLine = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.gbPen.SuspendLayout();
@@ -83,7 +81,6 @@
             this.pbMainGrafWin.Size = new System.Drawing.Size(976, 444);
             this.pbMainGrafWin.TabIndex = 0;
             this.pbMainGrafWin.TabStop = false;
-            this.pbMainGrafWin.Click += new System.EventHandler(this.pbMainGrafWin_Click);
             this.pbMainGrafWin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseClick);
             this.pbMainGrafWin.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDoubleClick);
             this.pbMainGrafWin.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbMainGrafWin_MouseDown);
@@ -93,7 +90,8 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblCoordPB1,
-            this.toolStripStatusLabel1});
+            this.tsslStatusActiveColor,
+            this.tsslFindLine});
             this.statusStrip1.Location = new System.Drawing.Point(0, 474);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1148, 22);
@@ -106,12 +104,18 @@
             this.lblCoordPB1.Size = new System.Drawing.Size(28, 17);
             this.lblCoordPB1.Text = "0 : 0";
             // 
-            // toolStripStatusLabel1
+            // tsslStatusActiveColor
             // 
-            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Black;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(16, 17);
-            this.toolStripStatusLabel1.Text = "   ";
+            this.tsslStatusActiveColor.BackColor = System.Drawing.Color.Black;
+            this.tsslStatusActiveColor.Name = "tsslStatusActiveColor";
+            this.tsslStatusActiveColor.Size = new System.Drawing.Size(16, 17);
+            this.tsslStatusActiveColor.Text = "   ";
+            // 
+            // tsslFindLine
+            // 
+            this.tsslFindLine.Name = "tsslFindLine";
+            this.tsslFindLine.Size = new System.Drawing.Size(19, 17);
+            this.tsslFindLine.Text = "    ";
             // 
             // label1
             // 
@@ -309,23 +313,23 @@
             this.label2.Text = "  ";
             this.label2.Click += new System.EventHandler(this.SelectColor_Click);
             // 
-            // listBox1
+            // lbListOfLines
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lbListOfLines.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(4, 14);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(150, 186);
-            this.listBox1.TabIndex = 4;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.lbListOfLines.FormattingEnabled = true;
+            this.lbListOfLines.Location = new System.Drawing.Point(4, 14);
+            this.lbListOfLines.Name = "lbListOfLines";
+            this.lbListOfLines.Size = new System.Drawing.Size(150, 186);
+            this.lbListOfLines.TabIndex = 4;
+            this.lbListOfLines.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Controls.Add(this.lbListOfLines);
             this.groupBox1.Location = new System.Drawing.Point(8, 267);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(158, 204);
@@ -335,7 +339,7 @@
             // 
             // gbShapes
             // 
-            this.gbShapes.Controls.Add(this.button1);
+            this.gbShapes.Controls.Add(this.cmdAddLine);
             this.gbShapes.Location = new System.Drawing.Point(8, 31);
             this.gbShapes.Name = "gbShapes";
             this.gbShapes.Size = new System.Drawing.Size(79, 122);
@@ -343,15 +347,16 @@
             this.gbShapes.TabStop = false;
             this.gbShapes.Text = "Фигуры";
             // 
-            // button1
+            // cmdAddLine
             // 
-            this.button1.Location = new System.Drawing.Point(9, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(29, 28);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "L";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cmdAddLine.BackgroundImage = global::GrafEditor.Properties.Resources.FractureLine;
+            this.cmdAddLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdAddLine.Location = new System.Drawing.Point(9, 19);
+            this.cmdAddLine.Name = "cmdAddLine";
+            this.cmdAddLine.Size = new System.Drawing.Size(29, 28);
+            this.cmdAddLine.TabIndex = 7;
+            this.cmdAddLine.UseVisualStyleBackColor = true;
+            this.cmdAddLine.Click += new System.EventHandler(this.button1_Click);
             // 
             // menuStrip1
             // 
@@ -366,6 +371,7 @@
             // файлToolStripMenuItem
             // 
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiNew,
             this.tsmiOpen,
             this.tsmiSave,
             this.tsmiSaveAs,
@@ -374,6 +380,13 @@
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // tsmiNew
+            // 
+            this.tsmiNew.Name = "tsmiNew";
+            this.tsmiNew.Size = new System.Drawing.Size(165, 22);
+            this.tsmiNew.Text = "Новый";
+            this.tsmiNew.Click += new System.EventHandler(this.tsmiNew_Click);
             // 
             // tsmiOpen
             // 
@@ -387,6 +400,7 @@
             this.tsmiSave.Name = "tsmiSave";
             this.tsmiSave.Size = new System.Drawing.Size(165, 22);
             this.tsmiSave.Text = "Сохранить";
+            this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
             // 
             // tsmiSaveAs
             // 
@@ -405,66 +419,27 @@
             this.tsmiExit.Name = "tsmiExit";
             this.tsmiExit.Size = new System.Drawing.Size(165, 22);
             this.tsmiExit.Text = "Выход";
+            this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
-            // button2
+            // cmdAddPoint
             // 
-            this.button2.Location = new System.Drawing.Point(93, 28);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(73, 43);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Добавить точку";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.cmdAddPoint.Location = new System.Drawing.Point(93, 28);
+            this.cmdAddPoint.Name = "cmdAddPoint";
+            this.cmdAddPoint.Size = new System.Drawing.Size(73, 43);
+            this.cmdAddPoint.TabIndex = 8;
+            this.cmdAddPoint.Text = "Добавить точку";
+            this.cmdAddPoint.UseVisualStyleBackColor = true;
+            this.cmdAddPoint.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button4
+            // cmdDelLine
             // 
-            this.button4.Location = new System.Drawing.Point(93, 110);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(73, 43);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "Удалить линию";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // lblTempX
-            // 
-            this.lblTempX.AutoSize = true;
-            this.lblTempX.Location = new System.Drawing.Point(190, 43);
-            this.lblTempX.MinimumSize = new System.Drawing.Size(40, 0);
-            this.lblTempX.Name = "lblTempX";
-            this.lblTempX.Size = new System.Drawing.Size(40, 13);
-            this.lblTempX.TabIndex = 11;
-            this.lblTempX.Text = "___";
-            // 
-            // lblTempY
-            // 
-            this.lblTempY.AutoSize = true;
-            this.lblTempY.Location = new System.Drawing.Point(190, 65);
-            this.lblTempY.MinimumSize = new System.Drawing.Size(40, 0);
-            this.lblTempY.Name = "lblTempY";
-            this.lblTempY.Size = new System.Drawing.Size(40, 13);
-            this.lblTempY.TabIndex = 12;
-            this.lblTempY.Text = "___";
-            // 
-            // Tdy
-            // 
-            this.Tdy.AutoSize = true;
-            this.Tdy.Location = new System.Drawing.Point(190, 132);
-            this.Tdy.MinimumSize = new System.Drawing.Size(40, 0);
-            this.Tdy.Name = "Tdy";
-            this.Tdy.Size = new System.Drawing.Size(40, 13);
-            this.Tdy.TabIndex = 14;
-            this.Tdy.Text = "___";
-            // 
-            // Tdx
-            // 
-            this.Tdx.AutoSize = true;
-            this.Tdx.Location = new System.Drawing.Point(190, 110);
-            this.Tdx.MinimumSize = new System.Drawing.Size(40, 0);
-            this.Tdx.Name = "Tdx";
-            this.Tdx.Size = new System.Drawing.Size(40, 13);
-            this.Tdx.TabIndex = 13;
-            this.Tdx.Text = "___";
+            this.cmdDelLine.Location = new System.Drawing.Point(93, 110);
+            this.cmdDelLine.Name = "cmdDelLine";
+            this.cmdDelLine.Size = new System.Drawing.Size(73, 43);
+            this.cmdDelLine.TabIndex = 10;
+            this.cmdDelLine.Text = "Удалить линию";
+            this.cmdDelLine.UseVisualStyleBackColor = true;
+            this.cmdDelLine.Click += new System.EventHandler(this.button4_Click);
             // 
             // frMainForm
             // 
@@ -472,12 +447,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1148, 496);
-            this.Controls.Add(this.Tdy);
-            this.Controls.Add(this.Tdx);
-            this.Controls.Add(this.lblTempY);
-            this.Controls.Add(this.lblTempX);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.cmdDelLine);
+            this.Controls.Add(this.cmdAddPoint);
             this.Controls.Add(this.gbShapes);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbPen);
@@ -521,11 +492,11 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbListOfLines;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox gbShapes;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Button cmdAddLine;
+        private System.Windows.Forms.ToolStripStatusLabel tsslStatusActiveColor;
         private System.Windows.Forms.ComboBox cbThicknes;
         private System.Windows.Forms.Button cmdSelectColor;
         private System.Windows.Forms.Label label12;
@@ -535,13 +506,11 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSaveAs;
         private System.Windows.Forms.ToolStripSeparator tsSeparator;
         private System.Windows.Forms.ToolStripMenuItem tsmiExit;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label lblTempX;
-        private System.Windows.Forms.Label lblTempY;
-        private System.Windows.Forms.Label Tdy;
-        private System.Windows.Forms.Label Tdx;
+        private System.Windows.Forms.Button cmdAddPoint;
+        private System.Windows.Forms.Button cmdDelLine;
         private System.Windows.Forms.ToolStripMenuItem tsmiSave;
+        private System.Windows.Forms.ToolStripStatusLabel tsslFindLine;
+        private System.Windows.Forms.ToolStripMenuItem tsmiNew;
     }
 }
 
