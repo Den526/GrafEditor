@@ -47,7 +47,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lbListOfLines = new System.Windows.Forms.ListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gbListOfLines = new System.Windows.Forms.GroupBox();
             this.gbShapes = new System.Windows.Forms.GroupBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +64,7 @@
             this.pbMainGrafWin = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
             this.gbPen.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.gbListOfLines.SuspendLayout();
             this.gbShapes.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMainGrafWin)).BeginInit();
@@ -299,17 +299,17 @@
             this.lbListOfLines.TabIndex = 4;
             this.lbListOfLines.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
-            // groupBox1
+            // gbListOfLines
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.gbListOfLines.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.Controls.Add(this.lbListOfLines);
-            this.groupBox1.Location = new System.Drawing.Point(8, 267);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(158, 204);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Список объектов";
+            this.gbListOfLines.Controls.Add(this.lbListOfLines);
+            this.gbListOfLines.Location = new System.Drawing.Point(8, 267);
+            this.gbListOfLines.Name = "gbListOfLines";
+            this.gbListOfLines.Size = new System.Drawing.Size(158, 204);
+            this.gbListOfLines.TabIndex = 5;
+            this.gbListOfLines.TabStop = false;
+            this.gbListOfLines.Text = "Список объектов";
             // 
             // gbShapes
             // 
@@ -451,7 +451,7 @@
             this.Controls.Add(this.cmdDelLine);
             this.Controls.Add(this.cmdAddPoint);
             this.Controls.Add(this.gbShapes);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbListOfLines);
             this.Controls.Add(this.gbPen);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -466,7 +466,7 @@
             this.statusStrip1.PerformLayout();
             this.gbPen.ResumeLayout(false);
             this.gbPen.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
+            this.gbListOfLines.ResumeLayout(false);
             this.gbShapes.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -494,7 +494,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox lbListOfLines;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbListOfLines;
         private System.Windows.Forms.GroupBox gbShapes;
         private System.Windows.Forms.Button cmdAddLine;
         private System.Windows.Forms.ToolStripStatusLabel tsslStatusActiveColor;

@@ -66,7 +66,7 @@ namespace GrafEditor
             }
             else if (e.Button == MouseButtons.Right)
             {
-                //закончить рисовать линию
+                //закончить рисовать линию/точку
                 flAddPoint = false;
                 flAddLine = false;
                 pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
@@ -181,7 +181,7 @@ namespace GrafEditor
                         //таскаем временную линию за мышью
                         FL_tmp.Move(e.X - PMoveBegin.X, e.Y - PMoveBegin.Y);
                         pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
-                        pbMainGrafWin.Image = PaintBitmap((Bitmap)pbMainGrafWin.Image, FL_tmp);
+                        pbMainGrafWin.Image = PaintBitmap((Bitmap)pbMainGrafWin.Image, FL_tmp); //дорисовываем будющее положение переносимой линии
                     }
                     if (flMovePoint)
                     {
@@ -219,7 +219,7 @@ namespace GrafEditor
                         FL_tmp.AddPoint(new Point(e.X, e.Y));
                         pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL);
 
-                        pbMainGrafWin.Image = PaintBitmap((Bitmap)pbMainGrafWin.Image, FL_tmp);
+                        pbMainGrafWin.Image = PaintBitmap((Bitmap)pbMainGrafWin.Image, FL_tmp); //дорисовываем предполагаемую точку + перенос линии
                     }
                 }
 
@@ -242,19 +242,17 @@ namespace GrafEditor
             lbListOfLines.SelectedIndex = lbListOfLines.Items.Count - 1;
         }
 
-
         private void SelectColor_Click(object sender, EventArgs e)
         {
-            //выбор цвета линии кликами по лейблам
+            //выбор рабочего цвета  кликами по лейблам
             Label l1 = (Label)sender;
             ChangeColor(l1.BackColor);
             //l1.BorderStyle = BorderStyle.FixedSingle;
-
         }
 
         private void cmdSelectColor_Click(object sender, EventArgs e)
         {
-            //выбор цвета линии из диалогового окна
+            //выбор рабочего цвета из диалогового окна
             ColorDialog SelColorDialog = new ColorDialog();
             DialogResult result = SelColorDialog.ShowDialog();
             if (result == DialogResult.OK)
@@ -264,6 +262,7 @@ namespace GrafEditor
         }
         private void ChangeColor(Color c)
         {
+                //Модуль смены рабочего цвета
                 ColorLine = c;
 
                 p1 = new Pen(ColorLine, ThicknesLine);
@@ -276,6 +275,7 @@ namespace GrafEditor
         }
         private void cbThicknes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //меняем толщину линии
             ThicknesLine = (float)Convert.ToDecimal(cbThicknes.Text);
             p1 = new Pen(ColorLine, ThicknesLine);
             if (IndActiveFL >= 0)
@@ -285,18 +285,19 @@ namespace GrafEditor
             }
         }
 
-
-
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             IndActiveFL = lbListOfLines.SelectedIndex;
             //Считываем значение пера во врем переменные исходя из значений выделенной линии
-            ThicknesLine = FL[IndActiveFL].Pero.Width;
-            ColorLine = FL[IndActiveFL].Pero.Color;
+            if (IndActiveFL >= 0)
+            {
+                ThicknesLine = FL[IndActiveFL].Pero.Width;
+                ColorLine = FL[IndActiveFL].Pero.Color;
 
-            //отмечаем в визуальных компонентах цвет и толщину
-            tsslStatusActiveColor.BackColor = ColorLine;
-            cbThicknes.Text = ThicknesLine.ToString();
+                //отмечаем в визуальных компонентах цвет и толщину
+                tsslStatusActiveColor.BackColor = ColorLine;
+                cbThicknes.Text = ThicknesLine.ToString();
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -309,7 +310,7 @@ namespace GrafEditor
                 {
                     //FL[IndActiveFL].Pero.;
                     FL[IndActiveFL].points.Clear();  //чистим список точек в указанной линии
-                    FL.RemoveAt(IndActiveFL);        //удаляем линию из List
+                     FL.RemoveAt(IndActiveFL);        //удаляем линию из List
                     lbListOfLines.Items.RemoveAt(IndActiveFL); //Удаляем линию из списка для user
                     IndActiveFL = -1;                //теперь активной линии нет
                     pbMainGrafWin.Image = PaintBitmap(pbMainGrafWin.Width, pbMainGrafWin.Height, FL); //перерисовываем картину

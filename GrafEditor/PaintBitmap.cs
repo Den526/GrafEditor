@@ -8,7 +8,7 @@ namespace GrafEditor
 {
     public partial class frMainForm
     {
-        //*********************************************** Прорисовка полная *****************************************//
+        //*********************************************** Прорисовка полная с нуля *****************************************//
         private Bitmap PaintBitmap(int width, int height, List<FractureLine> flt)
         {
             //русуем массив линий
@@ -46,26 +46,21 @@ namespace GrafEditor
 
             Point p1 = new Point();
             Point p2 = new Point();
-            Pen P;
             Pen Ptch;
 
             //int mx = 1; //Масштаб по x и y
             //int my = 1;
 
-            //for (int x = 0; x < flt.Count; x++)
+            Ptch = new Pen(Color.LimeGreen, (float)(flt.Pero.Width + 1));
+            if (flt.points.Count > 0) p1 = flt.points[0];  //начало рисования
+            for (int t = 0; t < flt.points.Count; t++)
             {
-                P = flt.Pero;
-                Ptch = new Pen(Color.LimeGreen, (float)(flt.Pero.Width + 1));
-                if (flt.points.Count > 0) p1 = flt.points[0];  //начало рисования
-                for (int t = 0; t < flt.points.Count; t++)
-                {
-                    p2 = flt.points[t];
-                    Rectangle r1 = new Rectangle(new Point(p2.X - (int)(Ptch.Width / 2), p2.Y - (int)(Ptch.Width / 2)), new Size((int)Ptch.Width, (int)Ptch.Width));
+                p2 = flt.points[t];
+                Rectangle r1 = new Rectangle(new Point(p2.X - (int)(Ptch.Width / 2), p2.Y - (int)(Ptch.Width / 2)), new Size((int)Ptch.Width, (int)Ptch.Width));
 
-                    grBack.DrawLine(P, p1, p2);
-                    grBack.DrawEllipse(Ptch, r1);
-                    p1 = p2;
-                }
+                grBack.DrawLine(flt.Pero, p1, p2);
+                grBack.DrawEllipse(Ptch, r1);
+                p1 = p2;
             }
             return btmBack;
         }

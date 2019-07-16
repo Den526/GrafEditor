@@ -22,6 +22,7 @@ namespace GrafEditor
         }
         //массив точек
         private List<Point> tchk = new List<Point>();
+        //Список точек
         public List<Point> points
         {
             get
@@ -33,6 +34,7 @@ namespace GrafEditor
                 tchk = value;
             }
         }
+        //Двигаем точки всей линии
         public void Move(int x, int y)
         {
             for (int i = 0; i < tchk.Count; i++)
@@ -40,10 +42,12 @@ namespace GrafEditor
                 this.tchk[i] = new Point(this.tchk[i].X + x, this.tchk[i].Y + y);
             }
         }
+        //добавить точку
         public void AddPoint(Point p)
         {
             this.tchk.Add(p);
         }
+        //копия линии
         public FractureLine Clone()
         {
             FractureLine f = new FractureLine();
@@ -54,6 +58,7 @@ namespace GrafEditor
             }
             return f;
         }
+        //поиск вхождения точки в линию и возврат номера первой точки отрезка на котором находится указанная точка
         public int InsidePoint(Point p)
         {
             Point p1;
@@ -74,11 +79,11 @@ namespace GrafEditor
                 //для более тонких линий - уставка промаха должна быть побольше, для жирных линий - поменьше
                 if (Math.Abs(ey * dx - ex * dy) <= (100 - 10 * this.pen.Width)  * this.pen.Width)
                 {
-                    //вычисляем скалярное прозведение p-p1 и p-p2, если оно <= 0 - точка принадлежит отрезку
+                    //вычисляем скалярное прозведение p-p1 и p-p2, если оно <= 0 - точка принадлежит отрезку и вернуть номер
                     if ((p1.X - p.X) * (p2.X - p.X) + (p1.Y - p.Y) * (p2.Y - p.Y) <= 0) return ti;
                 }
             }
-            return -1;
+            return -1; //если не надйено - вернуть -1
         }
     }
 }
